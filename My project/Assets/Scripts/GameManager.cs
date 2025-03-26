@@ -30,7 +30,6 @@ public class GameManager : MonoBehaviour
         }
 
         FileSave = Path.Combine(Application.persistentDataPath, "GameData.json");
-        Debug.Log(Application.persistentDataPath);
     }
     public void SaveData()
     {
