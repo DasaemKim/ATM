@@ -20,7 +20,8 @@ public class Popup_Bank : MonoBehaviour
     public Button WithdrawBackButton;
     public GameObject Cash_Lack;
     public Button OK_button;
-    public Text LoginErrorText;
+    public GameObject LoginErrorUI;
+    public Button Error_BackButton;
 
     public TMP_InputField DepositInputField;
     public TMP_InputField WithdrawInputField;
@@ -176,7 +177,12 @@ public class Popup_Bank : MonoBehaviour
 
         if (!suceess)
         {
-            LoginErrorText.text = "아이디 또는 비밀번호를 다시 입력해주세요!";
+            LoginErrorUI.SetActive(true); 
         }
+    }
+
+    public void ErrorBackButton()
+    {
+        LoginErrorUI.SetActive(false);
     }
 }
