@@ -49,8 +49,16 @@ public class GameManager : MonoBehaviour
 
         else
         {
-            userData = new UserData("±è´Ù»ù", 50000, 100000);
+            userData = new UserData("ABC123", "qwe123", "±è´Ù»ù", 50000, 100000);
             SaveData();
+        }
+    }
+
+    public void DeleteData()
+    {
+        if (File.Exists(FileSave))
+        {
+            File.Delete(FileSave);
         }
     }
 }
