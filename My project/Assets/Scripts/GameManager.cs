@@ -14,8 +14,10 @@ public class GameManager : MonoBehaviour
     public Text nameText;
     public TextMeshProUGUI balanceText;
     public TextMeshProUGUI cashText;
+    public GameObject LoginUI;
+    public GameObject ATMUI;
 
-    private string FileSave;
+    public string FileSave;
 
     void Awake()
     {
@@ -30,6 +32,9 @@ public class GameManager : MonoBehaviour
         }
 
         FileSave = Path.Combine(Application.persistentDataPath, "GameData.json");
+
+        LoginUI.SetActive(true);
+        ATMUI.SetActive(false);
     }
     public void SaveData()
     {
@@ -54,11 +59,19 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void DeleteData()
+    public bool Login(string id, string password)
     {
-        if (File.Exists(FileSave))
+        LoadData();
+
+        if (userData.ID == id && userData.Password == password)
         {
-            File.Delete(FileSave);
+            LoginUI.SetActive(false);
+            ATMUI.SetActive(true);
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 }

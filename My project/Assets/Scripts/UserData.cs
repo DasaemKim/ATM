@@ -20,5 +20,3 @@ public class UserData
         Cash = cash;
     }
 }
-
-

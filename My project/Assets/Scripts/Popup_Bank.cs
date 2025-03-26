@@ -4,6 +4,8 @@ using UnityEngine;
 using TMPro;
 using UnityEditor.Experimental.RestService;
 using UnityEngine.UI;
+using System.IO;
+using UnityEditor.PackageManager;
 public class Popup_Bank : MonoBehaviour
 {
     public Text UserNameText;
@@ -18,12 +20,15 @@ public class Popup_Bank : MonoBehaviour
     public Button WithdrawBackButton;
     public GameObject Cash_Lack;
     public Button OK_button;
+    public Text LoginErrorText;
 
     public TMP_InputField DepositInputField;
     public TMP_InputField WithdrawInputField;
+    public TMP_InputField IDInputField;
+    public TMP_InputField PasswordInputField;
 
     private void Start()
-    {
+    {   
         GameManager.Instance.LoadData();
         UpdateUI();
         DepositInputField.contentType = TMP_InputField.ContentType.IntegerNumber;
@@ -112,6 +117,7 @@ public class Popup_Bank : MonoBehaviour
             {
                 GameManager.Instance.userData.Balance -= amount;
                 GameManager.Instance.userData.Cash += amount;
+                GameManager.Instance.SaveData();
                 WithdrawInputField.text = "";
                 UpdateUI();
             }
@@ -136,6 +142,7 @@ public class Popup_Bank : MonoBehaviour
         {
             GameManager.Instance.userData.Cash -= amount;
             GameManager.Instance.userData.Balance += amount;
+            GameManager.Instance.SaveData();
             DepositInputField.text = "";
             UpdateUI();
         }
@@ -152,6 +159,7 @@ public class Popup_Bank : MonoBehaviour
         {
             GameManager.Instance.userData.Cash += amount;
             GameManager.Instance.userData.Balance -= amount;
+            GameManager.Instance.SaveData();
             WithdrawInputField.text = "";
             UpdateUI();
         }
@@ -159,6 +167,16 @@ public class Popup_Bank : MonoBehaviour
         else
         {
             Cash_Lack.SetActive(true);
+        }
+    }
+
+    public void LoginButton()
+    {
+        bool suceess =GameManager.Instance.Login(IDInputField.text, PasswordInputField.text);
+
+        if (!suceess)
+        {
+            LoginErrorText.text = "아이디 또는 비밀번호를 다시 입력해주세요!";
         }
     }
 }
